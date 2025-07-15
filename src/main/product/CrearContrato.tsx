@@ -1,7 +1,7 @@
 
 
 import { useRoute } from '@react-navigation/native'
-import { View, Text, Alert } from 'react-native'
+import { View, Text, Alert, Switch } from 'react-native'
 import { UseAuthStore } from '../shared/stores/useAuthStore';
 import { useMutation } from '@tanstack/react-query';
 import { api } from '../shared/helpers/api';
@@ -23,6 +23,7 @@ const crearContrato = async ({name, userId, productId}: props) => {
             userId,
             productId
         })
+        return data
     } catch (error) {
         console.log(error);
         throw new Error("Error en crear contrato")
@@ -69,16 +70,11 @@ const CrearContrato = () => {
                             value={values.name}
                             onChangeText={handleChange('name')}
                         />
-
-
                         <CustomButton
                             title='Crear contrato'
                             onPress={handleSubmit}
                         />
-
-
                     </ThemedView>
-
                 )
             }
         </Formik>
