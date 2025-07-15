@@ -45,7 +45,7 @@ const FacturasScreen = () => {
                             <Text>{item.estado}</Text>
                             <CustomButton 
                                 title={'Detalle'}
-                                onPress={() => (navigation as any).navigate("Detalle", {id: item.id})}    
+                                onPress={() => (navigation as any).navigate("Detalle", {id: item.id, estado: item.estado})}    
                             />
 
                         </View>
