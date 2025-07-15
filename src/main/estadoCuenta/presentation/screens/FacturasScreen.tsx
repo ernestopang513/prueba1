@@ -33,28 +33,36 @@ const FacturasScreen = () => {
     console.log(user?.estadoCuentas);
 
     return (
-        <ThemedView>
+        // <ThemedView>
             <FlatList
                 data={user?.estadoCuentas}
-                contentContainerStyle = {{paddingHorizontal: 20, gap: 20}}
+                contentContainerStyle = {{paddingHorizontal: 20, gap: 30, backgroundColor: 'white', flex: 1, paddingTop: 20}}
                 renderItem={({ item }) => {
                     return (
-                        <View
+                        <ThemedView level={2}
+                            style = {{
+                                padding: 10,
+                                borderWidth: 0.5,
+                                borderRadius: 10,
+                                borderColor: '#aaa'
+                            }}
                         >
+
                             <CustomText category='h2' >Estado de cuenta</CustomText>
                             <Text>{item.estado}</Text>
+                            {/* <View style = {{height: 20}} /> */}
                             <CustomButton 
-                                title={'Detalle'}
+                                title={'Detalles'}
                                 onPress={() => (navigation as any).navigate("Detalle", {id: item.id, estado: item.estado})}    
-                            />
+                                />
 
-                        </View>
+                        </ThemedView>
                     )
                 }}
 
 
             />
-        </ThemedView>
+        // </ThemedView>
     )
 }
 export default FacturasScreen

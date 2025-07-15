@@ -20,5 +20,5 @@ export function ThemedView({ style, lightColor, darkColor, level = 1, ...otherPr
         4: theme.basic['400'],
     }[level];
 
-    return <View style={[{ backgroundColor, flex: 1 }, style]} {...otherProps} />;
+    return <View style={[{ backgroundColor }, style]} {...otherProps} />;
 }
