@@ -13,7 +13,7 @@ const BottomTabNavigation = () => {
     <Tab.Navigator
      screenOptions={{
       // headerShown: false,
-      tabBarIcon: () => null,
+      // tabBarIcon: () => null,
      }}
     >
         <Tab.Screen name = "Home"  component={ProductNavigation} options={{headerShown: false}} />
