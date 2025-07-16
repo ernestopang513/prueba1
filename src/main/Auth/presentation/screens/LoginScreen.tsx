@@ -62,21 +62,23 @@ const LoginScreen = () => {
       }}
 
     >
-
       {
         ({ values, handleChange, handleSubmit }) => (
           <ThemedView style={{ paddingHorizontal: 20 }}>
 
-            <ScrollView>
+            <ScrollView
+              keyboardShouldPersistTaps = 'handled'
+            >
 
 
-              <CustomText category='h1' style ={{paddingTop: height * 0.35 }} >Iniciar sesión</CustomText>
+              <CustomText category='h1' style ={{paddingTop: height * 0.25 }} >Iniciar sesión</CustomText>
 
               <CustomInput
                 label='Username'
                 placeholder='Ingresa tu nombre de usuario'
                 value={values.username}
                 onChangeText={handleChange('username')}
+
               />
               <CustomInput
                 label='Contraseña'

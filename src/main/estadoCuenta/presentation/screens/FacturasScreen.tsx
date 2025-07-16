@@ -30,38 +30,50 @@ const FacturasScreen = () => {
         queryKey: ['facturas']
     })
 
-    console.log(user?.estadoCuentas);
+    console.log(typeof(user?.estadoCuentas[0].fechaLimite));
 
     return (
         // <ThemedView>
-            <FlatList
-                data={user?.estadoCuentas}
-                contentContainerStyle = {{paddingHorizontal: 20, gap: 30, backgroundColor: 'white', flex: 1, paddingTop: 20}}
-                renderItem={({ item }) => {
-                    return (
-                        <ThemedView level={2}
-                            style = {{
-                                padding: 10,
-                                borderWidth: 0.5,
-                                borderRadius: 10,
-                                borderColor: '#aaa'
-                            }}
-                        >
+        <FlatList
+            data={user?.estadoCuentas}
+            contentContainerStyle={{ paddingHorizontal: 20, gap: 30, backgroundColor: 'white', flex: 1, paddingTop: 20 }}
+            renderItem={({ item }) => {
+                const fecha = new Date(item.fechaLimite);
+                return (
+                    <ThemedView level={2}
+                        style={{
+                            padding: 10,
+                            borderWidth: 0.5,
+                            borderRadius: 10,
+                            borderColor: '#aaa'
+                        }}
+                    >
 
-                            <CustomText category='h2' >Estado de cuenta</CustomText>
-                            <Text>{item.estado}</Text>
-                            {/* <View style = {{height: 20}} /> */}
-                            <CustomButton 
-                                title={'Detalles'}
-                                onPress={() => (navigation as any).navigate("Detalle", {id: item.id, estado: item.estado})}    
-                                />
-
+                        <CustomText category='h2' >Estado de cuenta</CustomText>
+                        <View style={{ height: 20 }} />
+                        <ThemedView level={3} style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5, borderRadius: 10, marginBottom: 10 }}>
+                            <Text>Estado:</Text>
+                            <Text style={{ fontWeight: 'bold' }} >{item.estado}</Text>
                         </ThemedView>
-                    )
-                }}
+
+                        <ThemedView level={3} style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5, borderRadius: 10, marginBottom: 10 }} >
+                            <Text>Fecha límite:</Text>
+                            <Text>{fecha.toLocaleDateString()}</Text>
+                        </ThemedView>
 
 
-            />
+                        <View style={{ height: 20 }} />
+                        <CustomButton
+                            title={'Detalles'}
+                            onPress={() => (navigation as any).navigate("Detalle", { id: item.id, estado: item.estado })}
+                        />
+
+                    </ThemedView>
+                )
+            }}
+
+
+        />
         // </ThemedView>
     )
 }
