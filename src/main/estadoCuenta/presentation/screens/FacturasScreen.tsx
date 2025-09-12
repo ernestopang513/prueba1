@@ -36,7 +36,7 @@ const FacturasScreen = () => {
         // <ThemedView>
         <FlatList
             data={user?.estadoCuentas}
-            contentContainerStyle={{ paddingHorizontal: 20, gap: 30, backgroundColor: 'white', flex: 1, paddingTop: 20 }}
+            contentContainerStyle={{ paddingHorizontal: 20, gap: 30, backgroundColor: 'white', paddingTop: 20 }}
             renderItem={({ item }) => {
                 const fecha = new Date(item.fechaLimite);
                 return (

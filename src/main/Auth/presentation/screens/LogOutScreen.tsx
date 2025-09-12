@@ -18,6 +18,12 @@ const LogOutScreen = () => {
       <CustomText>{username}</CustomText>
     </View>
 
+    <Switch/>
+
+    <CustomToggle
+      isOn= {true}
+    />
+
  
     </ThemedView>
   )
