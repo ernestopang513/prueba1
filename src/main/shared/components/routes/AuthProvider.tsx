@@ -4,23 +4,18 @@ import { StackNavigationProp } from "@react-navigation/stack"
 // import { RootStackParams } from "../navigation/StackNavigation"
 import { PropsWithChildren, useEffect } from "react"
 import { UseAuthStore } from "../../stores/useAuthStore";
+import { RootStackParams } from "./RootStackNavigation";
 // import { useAuthStore } from "../store/auth/useAuthStore"
 
 
 
 export const AuthProvider = ({children}: PropsWithChildren) => {
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackNavigationProp<RootStackParams>>();
     const checkStatus = UseAuthStore(state => state.checkStatus);
     const status = UseAuthStore(state => state.status)
     useEffect(()=>{
       checkStatus();
-
-      // setTimeout(() => {
-      //   checkStatus();
-        
-      // }, 5000);
-
     }, [])
 
     useEffect(() => {
@@ -28,17 +23,15 @@ export const AuthProvider = ({children}: PropsWithChildren) => {
         if (status === 'authenticated') {
             navigation.reset({
                 index: 0,
-                routes: [{name: 'MainApp' as never}],
+                routes: [{name: 'MainApp'}],
             })
         }else {
             navigation.reset({
                 index: 0,
-                routes: [{ name: 'Auth' as never}]
+                routes: [{ name: 'Auth'}]
             })
         }
       }
-    
-   
     }, [status])
     
 

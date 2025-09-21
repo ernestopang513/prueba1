@@ -9,25 +9,27 @@ import CustomButton from '../../../shared/components/ui/CustomButton';
 import { UseAuthStore } from '../../../shared/stores/useAuthStore';
 import { SecureStorageAdapter } from '../../../shared/helpers/secure-storage-adapter';
 import { LoginSchema } from '../validations/validations';
+import { authLogin } from '../../../../actions/auth/login';
+import { UserLogin } from '../../../../domain/entities/auth';
 
 
-interface UserLogin { username: string, password: string }
+// interface UserLogin { username: string, password: string }
 
-const authLogin = async ({ username, password }: UserLogin) => {
-  try {
-    const { data } = await api.post("/users/login", {
-      username,
-      password
-    });
+// const authLogin = async ({ username, password }: UserLogin) => {
+//   try {
+//     const { data } = await api.post("/login", {
+//       username,
+//       password
+//     });
+//     // console.log(data);
+//     return data;
 
-    return data;
-
-  } catch (error) {
-    console.log(error)
-    // return undefined;
-    throw error
-  }
-}
+//   } catch (error) {
+//     console.log(error)
+//     // return undefined;
+//     throw error
+//   }
+// }
 
 
 const LoginScreen = () => {
@@ -41,7 +43,8 @@ const LoginScreen = () => {
     mutationFn: (data: UserLogin) => authLogin(data),
     onSuccess: async (data) => {
       loginStore(data)
-      console.log(await SecureStorageAdapter.getItem('user'))
+      console.log(await SecureStorageAdapter.getItem('user'), "user")
+      console.log(await SecureStorageAdapter.getItem('token'), "El token")
       // console.log(data),
     },
     onError: () => Alert.alert("Usuario o contraseña invalidos")
@@ -64,7 +67,7 @@ const LoginScreen = () => {
     >
       {
         ({ values, handleChange, handleSubmit }) => (
-          <ThemedView style={{ paddingHorizontal: 20 }}>
+          <ThemedView style={{ paddingHorizontal: 20 , flex: 1}}>
 
             <ScrollView
               keyboardShouldPersistTaps = 'handled'

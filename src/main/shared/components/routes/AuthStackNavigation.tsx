@@ -1,9 +1,14 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { View, Text } from 'react-native'
-import LoginScreen from './presentation/screens/LoginScreen';
+import LoginScreen from '../../../Auth/presentation/screens/LoginScreen';
 
 
-const AuthStack = createStackNavigator();
+export type AuthRootStackParams = {
+  LogIn: undefined,
+  Register: undefined
+}
+
+const AuthStack = createStackNavigator<AuthRootStackParams>();
 
 const AuthStackNavigation = () => {
   return (

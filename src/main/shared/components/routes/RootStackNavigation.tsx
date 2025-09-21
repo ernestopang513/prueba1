@@ -1,13 +1,17 @@
 import { View, Text } from 'react-native'
 import { createStackNavigator } from "@react-navigation/stack";
-import AuthStackNavigation from '../../../Auth/AuthStackNavigation';
+import AuthStackNavigation from './AuthStackNavigation';
 import BottomTabNavigation from './BottomTabNavigation';
 import LoadingScreen from '../../screens/LoadingScreen';
 
+export type RootStackParams = {
+  Auth: undefined;
+  MainApp: undefined;
+  Loading: undefined
+}
 
 
-
-const RootStack = createStackNavigator();
+const RootStack = createStackNavigator<RootStackParams>();
 
 const RootStackNavigation = () => {
   return (

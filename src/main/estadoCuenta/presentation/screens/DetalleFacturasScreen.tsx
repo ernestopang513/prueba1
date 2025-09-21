@@ -5,50 +5,17 @@ import { QueryClient, useMutation, useQuery, useQueryClient } from '@tanstack/re
 import { api } from '../../../shared/helpers/api';
 import { ThemedView } from '../../../shared/components/ui/ThemedView';
 import CustomButton from '../../../shared/components/ui/CustomButton';
+import { FacturaResponse } from '../../../../infrastructure/interfaces/factura.response';
+import { FacturaStatus } from '../../../../domain/enums/facturaStatus';
+import { pagar } from '../../../../actions/facturas/update-status';
+import { getEstadoCuenta } from '../../../../actions/facturas/get-facturas-pendientes';
+import { StackScreenProps } from '@react-navigation/stack';
+import { EstadoCuentaParams } from '../../../shared/components/routes/EstadoCuentaNavigation';
 
-// export interface FacturaResponse {
-//     id:     number;
-//     estado: string;
-// }
+interface Props extends StackScreenProps<EstadoCuentaParams, 'Detalle'> {}
 
-export interface FacturaResponse {
-    id: number;
-    estado: string;
-    monto: number;
-    fechaEmision: Date;
-    fechaLimite: Date;
-}
-
-
-const pagar = async (facturaId: number) => {
-    try {
-        await api.put(`/estado-cuenta/${facturaId}`,
-            {
-                estado: 'PAGADO'
-            }
-        )
-    } catch (error) {
-        console.log(error)
-        throw new Error('Error al pagar')
-    }
-}
-
-
-
-
-const getEstadoCuenta = async (facturaId: number): Promise<FacturaResponse> => {
-    try {
-        const { data } = await api.get(`/estado-cuenta/${facturaId}`)
-        return data;
-    } catch (error) {
-        console.log(error);
-        throw new Error('Error');
-    }
-}
-
-const DetalleFacturasScreen = () => {
-    const route = useRoute() as any;
-    const { id, estado } = route.params || {};
+const DetalleFacturasScreen = ({route}: Props) => {
+    const { id } = route.params || {};
     const queryClient = useQueryClient();
 
     const { data: factura, isLoading, isError, error } = useQuery({
@@ -71,7 +38,7 @@ const DetalleFacturasScreen = () => {
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["facturas"] })
             queryClient.invalidateQueries({ queryKey: ["factura", id] })
-            console.log('se pago el estado de cuenta')
+            // console.log('se pago el estado de cuenta')
         },
         onError: () => {
             Alert.alert("Algo salio mal al pagar");

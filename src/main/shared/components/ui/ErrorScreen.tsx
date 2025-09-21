@@ -2,6 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import CustomText from "./CustomText";
 import { ThemedView } from "./ThemedView";
 import { useThemeStore } from "../../stores/useThemeStore";
+import CustomButton from "./CustomButton";
 
 interface Props {
   message?: string;
@@ -16,11 +17,11 @@ const ErrorScreen = ({message = 'Error inesperado', onRetry}: Props) => {
       <CustomText numberOfLines={5} category='h1' >Error</CustomText>
       <CustomText numberOfLines={5} category='h3' status='danger' >{message}</CustomText>
       <Ionicons name='bug-outline' size={50}  style = {{marginTop: 10}} color = {theme.danger[500]}  />
-      {/* {
+      {
         onRetry && (
-          <Button size='giant' onPress={onRetry} >Retry</Button>
+          <CustomButton onPress={onRetry} title="Recargar" />
         )
-      } */}
+      }
     </ThemedView>
   )
 }

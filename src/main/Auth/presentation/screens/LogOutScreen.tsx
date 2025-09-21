@@ -9,7 +9,7 @@ import CustomText from '../../../shared/components/ui/CustomText'
 import { create } from 'zustand';
 const LogOutScreen = () => {
 
-  const username = UseAuthStore(state => state.user?.username) ?? 'Usuario'
+  const username = UseAuthStore(state => state.userName) ?? 'Usuario'
   return (
     <ThemedView style ={{paddingTop: 20, flex: 1, paddingHorizontal: 30 }}>
     
@@ -17,12 +17,12 @@ const LogOutScreen = () => {
       <CustomText category='h5'>Username</CustomText>
       <CustomText>{username}</CustomText>
     </View>
-
+{/* 
     <Switch/>
 
     <CustomToggle
       isOn= {true}
-    />
+    /> */}
 
  
     </ThemedView>

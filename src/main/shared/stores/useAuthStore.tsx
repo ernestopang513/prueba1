@@ -4,14 +4,15 @@ import { SecureStorageAdapter } from "../helpers/secure-storage-adapter";
 export type AuthStatus = 'authenticated' | 'unauthenticated' | 'checking';
 
 interface User {
-    id: number;
+    // id: number;
+    token: string;
     username: string;
 }
 
 export interface AuthState {
     status: AuthStatus;
-    user?: User;
-
+    userName?: string;
+    // token?: string;
     loginStore: (user: User |undefined) => void;
     logout: () => Promise<void>;
     checkStatus: ()=> Promise<void>;
@@ -20,31 +21,35 @@ export interface AuthState {
 export const UseAuthStore = create<AuthState>()((set,get) => ({
 
     status: 'checking',
-    user: undefined,
+    userName: undefined,
+    // token: undefined,
     loginStore: async(user: User | undefined) => {
 
         if(!user) {
-            await SecureStorageAdapter.deleteItem('user')
-            set({status: 'unauthenticated', user: undefined})
+            await SecureStorageAdapter.deleteItem('userName')
+            set({status: 'unauthenticated', userName: undefined})
             return
         }
 
-        await SecureStorageAdapter.setItem('user', JSON.stringify(user));
-        set({status: 'authenticated', user})
+        await SecureStorageAdapter.setItem('userName', user.username);
+        await SecureStorageAdapter.setItem('token', user.token);
+        set({status: 'authenticated', userName: user.username})
     },
 
     checkStatus:async() => {
-        const user = await SecureStorageAdapter.getItem('user');
-        if(!user) {
-            set({status: "unauthenticated", user: undefined});
+        const userName = await SecureStorageAdapter.getItem('userName');
+        // const token = await SecureStorageAdapter.getItem('token');
+        if(!userName) {
+            set({status: "unauthenticated", userName: undefined});
             return
         }
-        set({status: 'unauthenticated', user: undefined})
+        set({status: 'authenticated', userName: userName })
         return
     },
 
     logout: async()=>{
         await SecureStorageAdapter.deleteItem('user');
-        set({status: 'unauthenticated', user: undefined});
+        await SecureStorageAdapter.deleteItem('token');
+        set({status: 'unauthenticated', userName: undefined});
     }
 }))

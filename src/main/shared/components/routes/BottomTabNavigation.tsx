@@ -1,15 +1,18 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { View, Text, TouchableOpacity } from 'react-native'
-import HomeScreen from '../../../home/presentation/screens/HomeScreen';
-import LoginScreen from '../../../Auth/presentation/screens/LoginScreen';
 import LogOutScreen from '../../../Auth/presentation/screens/LogOutScreen';
-import ProductNavigation from '../../../product/ProductNavigation';
-import FacturasScreen from '../../../estadoCuenta/presentation/screens/FacturasScreen';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons}  from '@expo/vector-icons';
 import CustomText from '../ui/CustomText';
 import { UseAuthStore } from '../../stores/useAuthStore';
+import { EstadoCuentaNavigation } from './EstadoCuentaNavigation';
 
-const Tab = createBottomTabNavigator();
+export type RootBottomParams = {
+  Home: undefined;
+  Profile: undefined;
+
+}
+
+const Tab = createBottomTabNavigator<RootBottomParams>();
 type IoniconName = keyof typeof Ionicons.glyphMap;
 
 const BottomTabNavigation = () => {
@@ -33,7 +36,7 @@ const BottomTabNavigation = () => {
         })
      }} 
     >
-        <Tab.Screen name = "Home"  component={ProductNavigation} options={{headerShown: false}} />
+        <Tab.Screen name = "Home"  component={EstadoCuentaNavigation} options={{headerShown: false}} />
         {/* <Tab.Screen name = "Otro"  component={FacturasScreen}/> */}
         <Tab.Screen name = "Profile"  component={LogOutScreen}
            options={{
