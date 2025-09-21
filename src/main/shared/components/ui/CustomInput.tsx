@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+// import { useState } from 'react';
 import {
   View,
   TextInput,
@@ -14,6 +15,7 @@ type CustomInputProps = TextInputProps & {
   error?: string;
   containerStyle?: ViewStyle;
   inputStyle?: TextStyle;
+  isPassword?: boolean;
 };
 
 export const CustomInput = ({
@@ -23,9 +25,11 @@ export const CustomInput = ({
   inputStyle,
   onFocus,
   onBlur,
+  isPassword,
   ...props
 }: CustomInputProps) => {
   const [focused, setFocused] = useState(false);
+  const [secure] = useState(isPassword);
 
   const handleFocus = (e: any) => {
     setFocused(true);
@@ -50,6 +54,7 @@ export const CustomInput = ({
         onFocus={handleFocus}
         onBlur={handleBlur}
         placeholderTextColor="#aaa"
+        secureTextEntry={secure}
         {...props}
       />
       {error && <Text style={styles.errorText}>{error}</Text>}
