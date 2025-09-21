@@ -60,8 +60,11 @@ const LoginScreen = () => {
         password: ''
       }}
       validationSchema={LoginSchema}
-      onSubmit={(values) => {
-        loginMutation.mutate(values)
+      onSubmit={({username, password}) => {
+        loginMutation.mutate({
+          username: username.trim(),
+          password: password.trim()
+        })
       }}
 
     >
@@ -88,6 +91,7 @@ const LoginScreen = () => {
                 placeholder='Ingresa tu contraseña'
                 value={values.password}
                 onChangeText={handleChange('password')}
+                isPassword
               />
 
               <View style = {{height: 20}} />
